@@ -14,6 +14,7 @@ bool yesOrNo(){
 		cin >> key;
 	} while (key != 'y' && key != 'Y' && key != 'n' && key != 'N');
 
+
 	return (key == 'y' || key == 'Y');
 }
 // Execute for the 1st option
