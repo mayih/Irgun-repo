@@ -14,102 +14,83 @@ bool yesOrNo(){
 		cin >> key;
 	} while (key != 'y' && key != 'Y' && key != 'n' && key != 'N');
 
-
 	return (key == 'y' || key == 'Y');
 }
-// Execute for the 1st option
-TrieSite createATrieSite(){
-	string path;
-	bool isLoaded;
-
-	cout << "\nLoad an existant TrieSite?(y/n) : ";
-	isLoaded = yesOrNo();
-
-	cout << "Please enter the path (absolute/relative):" << endl;
-	cin >> path;
-
-	if (isLoaded) // Load
+int chooseOption(int maxOption){
+	int selected;
+	do
 	{
-		bool rightToWrite;
-		cout << "Do you wish to be able to modify it? (y/n) : ";
-		rightToWrite = yesOrNo();
-		return TrieSite(path, 'm', (rightToWrite ? 'm' : 'q'));
-
-	}
-	else{ // Create
-		return TrieSite(path, 'c', 0);
-	}
+		cin >> selected;
+	} while (selected < 1 || selected > maxOption);
+	return selected;
 }
 
 int main()
 {
-	bool again = true;
-	int option = 0;
-	TrieSite* allTrieSites = new TrieSite();
-	int numberOfTrieSite = 0;
-	do
-	{
-		// Display the menu
-		string menu = "Choose an option from the menu:\n";
-				menu += "1- Create a TrieSite\n";
-				menu += "2- Load a stop.fl to one of your Trisite\n";
-		cout << menu;
+	char a[2] = { 'a', 'b' };
 
-		// Read an option
-		do
-		{
-			cin >> option;
-		} while (option < 1 && option > 1 /*To increase*/ );
+	try{
+		checkFlagValues('C', a);
+	}
+	catch (string e){
+		cout << e << endl;
+		system("pause");
+	}
 
-		// Execute the option
-		switch (option)
-		{
+	//int option = 0;
+	//TrieSite trie;
+	//bool rightToWrite;
+	//string path;
 
-		case 1:
-			allTrieSites[numberOfTrieSite] = createATrieSite();
-			numberOfTrieSite++;
-			break;
+	//// STEP ONE ------------------
+	//// Display the menu
+	//string menu = "Choose an option:\n";
+	//		menu += "1- Create a TrieSite\n";
+	//		menu += "2- Open an existing TrieSite?\n";
+	//cout << menu;
 
-		case 2:
-			int selected = 0;
-			string path;
+	//// Read an option
+	//option = chooseOption(2);
 
-			// If there's no TrieSite
-			if (numberOfTrieSite < 1) {
-				cout << "You still have no TrieSite created." << endl
-					<< "Please create one by selecting 1 from the menu." << endl;
-				break;
-			}
+	//// Read the TrieSite's path
+	//cout << "Please enter the TrieSite's path (absolute/relative):" << endl;
+	//cin >> path;
 
-			// If there's more than 1 TrieSite
-			if (numberOfTrieSite > 1)
-			{
-				cout << "You've got " << numberOfTrieSite << " TrieSites availaible." << endl
-					<< "Which one do you wanna load the stop file to? (1->" << numberOfTrieSite << ")" << endl;
-				do
-				{
-					cin >> selected;
-					if (selected < 1 || selected > numberOfTrieSite) // if wrong on the choice
-						cout << "Please choose a correct Triesite: ";
-				} while (selected < 1 || selected > numberOfTrieSite);
-			}
+	//// Asking the opening method
+	//cout << "Do you wish to be able to modify it? (y/n) : ";
+	//rightToWrite = yesOrNo();
 
-			cout << "Please enter the file's path you wish to load:" << endl;
-			cin >> path;
-			allTrieSites[selected].putstopfl(path);
+	//// Create/load the TrieSite
+	//trie = TrieSite(path, (option == 1 ? 'c' : 'm'), (rightToWrite ? 'm' : 'q'));
+	//// -----------------------------
 
-		}
+	//// STEP TWO ----------------------
+	//bool exit = false;
+	//do
+	//{
+	//	cout << endl;
+	//	menu = "Choose an option:\n";
+	//	menu += "1- Load a .stop file\n";
+	//	menu += "2- Add a file as a document\n";
+	//	menu += "3- Exit";
+	//	cout << menu;
 
-		// Ask the user if he wanna continu.
-		cout << "Done." << endl;
-		cout << "Return to Menu? (y/n) : ";
-		again = yesOrNo();
-		cout << endl;
-	} while (again);
+	//	option = chooseOption(3);
 
-	// Clear memory
-	delete allTrieSites;
-	allTrieSites = 0;
+	//	switch (option)
+	//	{
+	//	case 1:
+	//		cout << "Enter the .stop file's path:\n";
+	//		cin >> path;
+	//		trie.putstopfl(path);
+	//		break;
+	//	case 2:
+	//		break;
+	//	default:
+	//		exit = true;
+	//	}
+
+	//} while (!exit);
 
 	return 0;
 }

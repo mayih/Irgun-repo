@@ -1,5 +1,6 @@
 #pragma once
 #include <windows.h>
+#include <vector>
 #include <iostream>
 #include <list>
 #include <fstream>
@@ -210,7 +211,7 @@ bool fileExist(string path);
 bool dirExist(string path);
 /*************************************************
 * FUNCTION
-*	RelativePath
+*	isRelativePath
 * PARAMETERS
 *	string & path - directory full path
 * RETURN VALUE
@@ -220,7 +221,7 @@ bool dirExist(string path);
 * SEE ALSO
 *	
 **************************************************/
-bool relativePath(string & path);
+bool isRelativePath(string & path);
 /*************************************************
 * FUNCTION
 *	removeSlash
@@ -379,7 +380,6 @@ string getSiteFromFilePath(string filePath);
 * MEANING
 *	Execute a command and return what's printed on the screen "echo hello" ==> "hello".
 * SEE ALSO
-*
 **************************************************/
 string resultCommand(std::string command);
 /*************************************************
@@ -393,7 +393,73 @@ string resultCommand(std::string command);
 * MEANING
 *	Convert a relative path to an absolute one "myDir" ==> "C:\\path\\to\\myDir".
 * SEE ALSO
-*
 **************************************************/
 string relativePathToAbsolute(std::string path);
+/*************************************************
+* Added by Moshe Uzan & Yair Behar
+* FUNCTION
+*	splitString
+* PARAMETERS
+*	string str - String to split.
+*	string spliter - Delimiter.
+* RETURN VALUE
+*	vector<string>
+* MEANING
+*	Split a string into an array of string according the spliter: ("hello,world", ",") => ["hello", "world"]
+* SEE ALSO
+**************************************************/
+std::vector<string> splitString(std::string str, std::string spliter);
+/*************************************************
+* Added by Moshe Uzan & Yair Behar
+* FUNCTION
+*	getFile
+* PARAMETERS
+*	string path - path to the file.
+* RETURN VALUE
+*	string
+* MEANING
+*	Get the file's name with its extension: C:/path/to/myFile.txt => myfile.txt
+* SEE ALSO
+**************************************************/
+std::string cutFileNameWithExtension(std::string pathToFile);
+/*************************************************
+* Added by Moshe Uzan & Yair Behar
+* FUNCTION
+*	getFile
+* PARAMETERS
+*	string path - path to analyse.
+* RETURN VALUE
+*	string
+* MEANING
+*	Get the file's name with its extension: C:/path/to/myFile.txt => myfile.txt
+* SEE ALSO
+**************************************************/
+std::string getPathSpliter(std::string path);
+/*************************************************
+* Added by Moshe Uzan & Yair Behar
+* FUNCTION
+*	check2FlagValue
+* PARAMETERS
+*	char param - param to analyse.
+*	char* values - possible values for param.
+* RETURN VALUE
+*	void
+* MEANING
+*	Check the value of "param" according to the values of "values". If param doesn't match with any values, throw an exception.
+* SEE ALSO
+**************************************************/
+void checkFlagValues(char param, char* values, int nbrOfValues = 2);
+/*************************************************
+* Added by Moshe Uzan & Yair Behar
+* FUNCTION
+*	addSlashToDirPath
+* PARAMETERS
+*	char path - Path to add slash.
+* RETURN VALUE
+*	string
+* MEANING
+*	Add a slash at the end of a directory path if it doesn't have one: C:/my/path => C:/my/path/
+* SEE ALSO
+**************************************************/
+std::string addSlashToDirPath(std::string path);
 /* -------------------------------------------------------------- */

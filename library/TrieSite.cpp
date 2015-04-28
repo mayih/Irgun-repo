@@ -87,17 +87,34 @@ TrieDoc* TrieSite::docExists(string name){
 	return NULL;
 }
 
-void TrieSite::docUpload(std::string name, char copyOrMove){
+void TrieSite::docUpload(std::string path, char copyOrMove){
 	// Check if mounted and its rights
 	throwIfNotMount("Can't upload a document to an unmount TrieSite.");
 	throwIfNotMaintenance("Can't upload a document to a reading TrieSite.");
 
+
+
 	// Check if not existant
-	if (docExists(name) != NULL)
+	if (docExists(path) != NULL)
 		throw "This document already exists.";
 
-	_docList.push_back(TrieDoc(name));
+	//TrieDoc newComer = TrieDoc(path);
+	// newComer.putDoc();
+	//_docList.push_back(newComer);
+
 	// ...
+}
+
+string TrieSite::docdownload(string docName, string outPath = ""){
+	TrieDoc *selected = docExists(docName);
+
+	// Check if file exists
+	if (selected == NULL)
+		throw "Download failed. This file is inexistant.";
+
+	// Copy
+	string path = _siteName + "/" + selected->_docName;
+	//selected->getDoc(path, outPath);
 }
 
 // Private functions ----

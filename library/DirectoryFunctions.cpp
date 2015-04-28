@@ -222,7 +222,7 @@ bool dirExist(string path)
 	else
 		return false;
 }
-bool relativePath( string & path )
+bool isRelativePath(string & path)
 {
 	size_t found;
 	found = path.rfind(":");
@@ -398,5 +398,57 @@ std::string relativePathToAbsolute(std::string path)
 	if (w != path.length())
 		path = currentPath.substr(0, j) + "/" + path.substr(k, w);
 
+	return path;
+}
+
+vector<string> splitString(string str, string spliter) {
+	vector<string> result;
+
+	size_t pos = 0;
+	std::string token;
+	str += spliter;
+	while ((pos = str.find(spliter)) != std::string::npos) {
+		token = str.substr(0, pos);
+		result.push_back(token);
+		str.erase(0, pos + spliter.length());
+	}
+	return result;
+}
+
+string cutFileNameWithExtension(string pathToFile){
+		string spliter = getPathSpliter(pathToFile);
+
+		vector<string> splited = splitString(pathToFile, spliter);
+		return splited[splited.size() - 1];
+}
+
+string getPathSpliter(std::string path){
+	if (path.find("/") != std::string::npos)
+		return "/";
+	else
+		return "\\";
+}
+
+void checkFlagValues(char param, char* values, int nbrOfValues){
+	bool ok = false;
+	int diff = 'a' - 'A';
+	string ex = "Incorrect parameter. This parameter can't be equal to " + string(1, param) + ", it can only be equal to one of the following values:";
+
+
+	for (int i = 0; i < nbrOfValues; i++)
+	{
+		ex += " " + string(1, values[i]);
+		ok = (param == values[i]) || (param == values[i] - diff) || (param == values[i] + diff);
+		if (ok)
+			i = nbrOfValues;
+	}
+
+	if (!ok) 
+		throw ex;
+}
+
+string addSlashToDirPath(string path){
+	if (path[path.length() - 1] != '/') // Add '/' to the TrieSite's path if it doesn't have one.
+		path += "/";
 	return path;
 }

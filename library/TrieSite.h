@@ -88,7 +88,7 @@ namespace Trie {
 		*	It mounts a TrieSite from an existant directory, and loads all the documents inside.
 		* SEE ALSO
 		**************************************************/
-		void mount(std::string fullPath, char flag = 'q');
+		void mount(std::string fullPath, char mountedType = 'q');
 		/*************************************************
 		* FUNCTION
 		*	unmount
@@ -128,7 +128,7 @@ namespace Trie {
 		* FUNCTION
 		*	docUpload
 		* PARAMETERS
-		*	string name - TrieDoc's name.
+		*	string path - Document's path.
 		*	char copyOrMove - Indicates if the document will be copied ('c') or moved ('m').
 		* RETURN VALUE
 		*	void
@@ -136,7 +136,20 @@ namespace Trie {
 		*	Upload a document to the Triesite's docList.
 		* SEE ALSO
 		**************************************************/
-		void docUpload(std::string name, char copyOrMove);
+		void docUpload(std::string path, char copyOrMove);
+		/*************************************************
+		* FUNCTION
+		*	docdownload
+		* PARAMETERS
+		*	string docName - Document's name to download from the TrieSite.
+		*	string outPath - Absolute output path (default: current folder).
+		* RETURN VALUE
+		*	void
+		* MEANING
+		*	Upload a document to the Triesite's docList.
+		* SEE ALSO
+		**************************************************/
+		std::string docdownload(std::string docName, std::string outPath);
     };
 }
 #endif /* defined(__Projet__TrieSite__) */
